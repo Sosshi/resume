@@ -1,0 +1,30 @@
+{%extends "base.html"%} {% block content%}
+
+
+<section class="ftco-section" id="blog-section">
+    <div class="container">
+        <div class="row d-flex">
+            {% for post in posts%}
+            <div class="col-md-4 d-flex ftco-animate">
+                <div class="blog-entry justify-content-end">
+                    <a href="{% url 'blog_detail' post.slug %}" class="block-20" style="background-image: url('{{post.image}}');">
+                    </a>
+                    <div class="text mt-3 float-right d-block">
+                        <h3 class="heading"><a href="{% url 'blog_detail' post.slug %}">{{post.title}}</a></h3>
+                        <div class="d-flex align-items-center mb-3 meta">
+                            <p class="mb-0">
+                                <span class="mr-2">Sept. 12, 2019</span>
+                                <a href="/" class="mr-2">{{post.author}}</a>
+                            </p>
+                        </div>
+                        <p><a href="{% url 'blog_detail' post.slug %}" style="color:black">{{post.body| slice:":90"}}</a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+{%endblock content%}

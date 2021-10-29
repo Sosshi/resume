@@ -20,7 +20,7 @@ class Post(models.Model):
 
     def get_image(self):
         """To get the image url"""
-        url = "http://127.0.01:8000/media/"
+        url = "http://127.0.01:8000/static"
         if self.image:
             return url + self.image.url
         else:

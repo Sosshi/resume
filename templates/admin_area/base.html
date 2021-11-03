@@ -73,7 +73,13 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{% static 'assets/img/profile-img.jpg'%}" alt="Profile" class="rounded-circle">
+                        {% if request.user.get_image %}
+                        <img src="{{request.user.get_image}}" alt="Profile" class="rounded-circle">
+                        {% else %}
+                        <img src="/static/images/profile_ph.png" alt="Profile" class="rounded-circle">
+                        {% endif %}
+                        
+                        
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{request.user.username}}</span>
                     </a>
                     <!-- End Profile Iamge Icon -->
@@ -81,7 +87,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{request.user.username}}</h6>
-                            <span>Researcher</span>
+                            <span>{{request.user.job}}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -140,14 +146,6 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link " href="{% url 'dashboard' %}">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <!-- End Dashboard Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">

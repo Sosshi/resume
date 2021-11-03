@@ -59,6 +59,22 @@ class StatisticsViews(LoginRequiredMixin, TemplateView):
     template_name = "admin_area/statistics.html"
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(LoginRequiredMixin, UpdateView):
     template_name = "admin_area/profile.html"
     model = get_user_model()
+    fields = [
+        "profile_image",
+        "first_name",
+        "last_name",
+        "date_of_birth",
+        "about",
+        "job",
+        "address",
+        "phone",
+        "email",
+        "twitter",
+        "facebook",
+        "instagram",
+        "linkedin",
+    ]
+    success_url = "/dashboard/"

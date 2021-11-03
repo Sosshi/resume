@@ -12,6 +12,7 @@ whitenoise = "*"
 django-summernote = "*"
 django-ckeditor = "*"
 django-currentuser = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 pylint = "*"

@@ -32,8 +32,10 @@ INSTALLED_APPS = [
     "posts",
     "blog",
     "users",
-    "ckeditor",
     "admin_area",
+    # 3rd party apps
+    "crispy_forms",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -45,6 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_currentuser.middleware.ThreadLocalUserMiddleware",
 ]
 
 ROOT_URLCONF = "resume.urls"
@@ -136,3 +139,5 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "home"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

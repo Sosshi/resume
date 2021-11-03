@@ -2,27 +2,29 @@
 <!-- News & Updates Traffic -->
 <section class="section dashboard">
     <div class="row">
-        <div class="card" style="padding-bottom: 40px;">
+        <!-- Card with an image on left -->
+        {% for post in posts %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    {% if post.get_image %}<img src="{{post.get_image}}" class="img-fluid rounded-start" alt="..."> {% else %}
+                    <img src="/static/images/blog_placeholder.jpg" class="img-fluid rounded-start" alt="..."> {% endif %}
 
-            <div class="card-body pb-0">
-                <h5 class="card-title">Blog List</span>
-                </h5>
-                {% for post in posts %}
-                <div class="news" style="padding-top: 10px;">
-                    <div class="post-item clearfix">
-                        <img src="{{post.get_image}}" alt="">
-                        <h4><a href="#">{{post.title}}</a></h4>
-                        <p>{{post.body|safe| slice:":90"}}...</p>
-                    </div>
-                    <p><a href=" {% url 'dashboard_blog_edit' post.slug %} " class="btn btn-primary active">Edit</a> <a href="{% url 'dashboard_blog_delete' post.slug%}" class="btn btn-danger">Delete</a></p>
 
                 </div>
-                {% endfor %}
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{post.title}}t</h5>
+                        <p class="card-text">{{post.body|safe| slice:":500"}}...</p>
+                    </div>
+                    <p style="padding-left: 10px;"><a href=" {% url 'dashboard_blog_edit' post.slug %} " class="btn btn-primary active">Edit</a> <a href="{% url 'dashboard_blog_delete' post.slug%}" class="btn btn-danger">Delete</a></p>
 
-                <!-- End sidebar recent posts-->
-
+                </div>
             </div>
         </div>
+        <!-- End Card with an image on left -->
+        {% endfor %}
+
     </div>
 </section>
 <!-- End News & Updates -->{% endblock content %}

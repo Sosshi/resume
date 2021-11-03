@@ -9,6 +9,9 @@ pillow = "*"
 pylint-django = "*"
 gunicorn = "*"
 whitenoise = "*"
+django-summernote = "*"
+django-ckeditor = "*"
+django-currentuser = "*"
 
 [dev-packages]
 pylint = "*"

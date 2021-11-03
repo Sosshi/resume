@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
@@ -9,14 +10,14 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, null=True, blank=True)
-    body = models.TextField()
-    created = models.DateTimeField(auto_created=True)
+    body = RichTextField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
     isPublished = models.BooleanField("Published?", default=False)
     image = models.ImageField(upload_to="images", null=True, blank=True)
     slug = models.SlugField()
 
     def get_absolute_url(self):
-        return reverse("post_detail", args=[str(self.id)])
+        return reverse("post_detail", args=[str(self.slug)])
 
     def get_image(self):
         """To get the image url"""

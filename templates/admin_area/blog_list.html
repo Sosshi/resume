@@ -1,0 +1,28 @@
+{% extends "admin_area/base.html" %} {% load static %} {% block content %}
+<!-- News & Updates Traffic -->
+<section class="section dashboard">
+    <div class="row">
+        <div class="card" style="padding-bottom: 40px;">
+
+            <div class="card-body pb-0">
+                <h5 class="card-title">Blog List</span>
+                </h5>
+                {% for post in posts %}
+                <div class="news" style="padding-top: 10px;">
+                    <div class="post-item clearfix">
+                        <img src="{{post.get_image}}" alt="">
+                        <h4><a href="#">{{post.title}}</a></h4>
+                        <p>{{post.body|safe| slice:":90"}}...</p>
+                    </div>
+                    <p><a href=" {% url 'dashboard_blog_edit' post.slug %} " class="btn btn-primary active">Edit</a> <a href="{% url 'dashboard_blog_delete' post.slug%}" class="btn btn-danger">Delete</a></p>
+
+                </div>
+                {% endfor %}
+
+                <!-- End sidebar recent posts-->
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End News & Updates -->{% endblock content %}

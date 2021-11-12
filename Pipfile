@@ -13,6 +13,7 @@ django-summernote = "*"
 django-ckeditor = "*"
 django-currentuser = "*"
 django-crispy-forms = "*"
+django-hitcount = "*"
 
 [dev-packages]
 pylint = "*"

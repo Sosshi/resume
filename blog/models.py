@@ -2,6 +2,9 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
+from django.contrib.contenttypes.fields import GenericRelation
+from hitcount.models import HitCountMixin, HitCount
 
 
 class Post(models.Model):
@@ -14,9 +17,15 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     isPublished = models.BooleanField("Published?", default=False)
     image = models.ImageField(upload_to="images", null=True, blank=True)
-    slug = models.SlugField()
+    slug = models.SlugField(default="", editable=False, max_length=160)
+    post_views = GenericRelation(
+        HitCount,
+        object_id_field="object_p",
+        related_query_name="hit_count_generic_relation",
+    )
 
     def get_absolute_url(self):
+        """Blog post reverse Url"""
         return reverse("post_detail", args=[str(self.slug)])
 
     def get_image(self):
@@ -31,7 +40,8 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = self.title.replace(" ", "-")
+        """Slugify and fill in the slug model"""
+        self.slug = slugify(self.title, allow_unicode=True)
         super(Post, self).save(*args, **kwargs)
 
 

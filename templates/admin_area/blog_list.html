@@ -1,4 +1,4 @@
-{% extends "admin_area/base.html" %} {% load static %} {% block content %}
+{% extends "admin_area/base.html" %} {% load static %} {% block content %} {% load hitcount_tags %}
 <!-- News & Updates Traffic -->
 <section class="section dashboard">
     <div class="row">
@@ -17,7 +17,8 @@
                         <h5 class="card-title">{{post.title}}t</h5>
                         <p class="card-text">{{post.body|safe| slice:":500"}}...</p>
                     </div>
-                    <p style="padding-left: 10px;"><a href=" {% url 'dashboard_blog_edit' post.slug %} " class="btn btn-primary active">Edit</a> <a href="{% url 'dashboard_blog_delete' post.slug%}" class="btn btn-danger">Delete</a></p>
+                    <p style="padding-left: 10px;"><a href=" {% url 'dashboard_blog_edit' post.slug %} " class="btn btn-primary active">Edit</a> <a href="{% url 'dashboard_blog_delete' post.slug%}" class="btn btn-danger">Delete</a> <button type="button" class="btn btn-light" disabled>Views: {% get_hit_count for post%}</button></p>
+
 
                 </div>
             </div>

@@ -21,3 +21,15 @@ class CustomUser(AbstractUser):
             return url + self.profile_image.url
         else:
             return ""
+
+
+class ActivityLog(models.Model):
+    user = models.ForeignKey(CustomUser, related_name="logs", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    activity = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.activity
+
+    class Meta:
+        ordering = ["-created"]

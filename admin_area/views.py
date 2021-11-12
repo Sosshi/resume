@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
 from django.views.generic import (
     TemplateView,
     CreateView,
@@ -9,16 +10,26 @@ from django.views.generic import (
     ListView,
     DetailView,
 )
+from django.db.models import Count
+
 from blog.models import Post
 from blog.forms import PostForm
-from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
+from users.models import ActivityLog
 
 
 # Dashboard views
 class DashBoardView(LoginRequiredMixin, TemplateView):
     template_name = "admin_area/dashboard.html"
-    login_url = reverse_lazy("login")
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        activity_log = ActivityLog.objects.all()[:5]
+        number_of_blogs = Post.objects.count()
+        number_of_blog_views = 0
+        context["activity_logs"] = activity_log
+        context["number_of_blogs"] = number_of_blogs
+        context["number_of_blog_views"] = number_of_blog_views
+        return context
 
 
 # blogViews
@@ -29,7 +40,11 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
     success_url = "/dashboard/blog/"
 
     def form_valid(self, form):
-        form.instance.author = get_user_model().objects.get(id=1)
+        form.instance.author = self.request.user
+        ActivityLog.objects.create(
+            user=self.request.user,
+            activity=f"Arcticle {form.instance.title} was created",
+        )
         return super().form_valid(form)
 
 
@@ -38,6 +53,12 @@ class BlogEditView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ["title", "subtitle", "body", "image"]
     success_url = "/dashboard/blog/"
+
+    def form_valid(self, form):
+        ActivityLog.objects.create(
+            user=self.request.user, activity=f"Artcile {form.instance.title} was edited"
+        )
+        return super().form_valid(form)
 
 
 class BlogDeleteView(LoginRequiredMixin, DeleteView):

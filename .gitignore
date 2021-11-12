@@ -1,0 +1,21 @@
+# gitignore
+
+# git itself
+.git
+
+# all logs
+*.log
+
+# vscode/settings
+.vscode
+
+# local-config
+.env
+
+# jupyter
+.ipynb_checkpoints
+
+### Python ###
+# precompiled
+__pycache__
+*.py[cod]

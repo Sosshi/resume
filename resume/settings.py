@@ -28,14 +28,15 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     # Local apps
-    "main",
-    "posts",
-    "blog",
-    "users",
-    "admin_area",
+    "main.apps.MainConfig",
+    "posts.apps.PostsConfig",
+    "blog.apps.BlogConfig",
+    "users.apps.UsersConfig",
+    "admin_area.apps.AdminAreaConfig",
     # 3rd party apps
     "crispy_forms",
     "ckeditor",
+    "hitcount",
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Blantyre"
 
 USE_I18N = True
 

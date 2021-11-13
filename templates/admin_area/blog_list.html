@@ -3,7 +3,7 @@
 <section class="section dashboard">
     <div class="row">
         <!-- Card with an image on left -->
-        {% for post in posts %}
+        {% if posts %} {% for post in posts %}
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
@@ -24,7 +24,14 @@
             </div>
         </div>
         <!-- End Card with an image on left -->
-        {% endfor %}
+        {% endfor %} {% else %}
+        <div class="card mb-3">
+            <h1 style="align-self: center;">No blogs</h1>
+        </div>
+        <!-- End Card with an image on left -->
+        {% endif %}
+
+
 
     </div>
 </section>

@@ -27,8 +27,11 @@ class Post(models.Model):
     slug = models.SlugField(default="", editable=False, max_length=160)
     post_views = GenericRelation(
         HitCount,
-        object_id_field="object_p",
+        object_id_field="object_pk",
         related_query_name="hit_count_generic_relation",
+    )
+    category = models.ForeignKey(
+        Category, related_name="posts", on_delete=models.CASCADE, null=True, blank=True
     )
 
     def get_absolute_url(self):

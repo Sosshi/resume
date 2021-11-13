@@ -1,10 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import CustomUser
+from django.forms import ModelForm
 
 from django.contrib.auth.forms import AuthenticationForm
-
-from django import forms
 
 
 class UserLoginForm(AuthenticationForm):
@@ -25,3 +24,25 @@ class UserLoginForm(AuthenticationForm):
             }
         )
     )
+
+
+class UserForm(ModelForm):
+    required_css_class = "required"
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            "profile_image",
+            "first_name",
+            "last_name",
+            "date_of_birth",
+            "about",
+            "job",
+            "address",
+            "phone",
+            "email",
+            "twitter",
+            "facebook",
+            "instagram",
+            "linkedin",
+        ]

@@ -1,5 +1,8 @@
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
+
 from .models import Post, Category
+from .forms import SubscribersForm
 
 
 class BlogListView(ListView):
@@ -21,3 +24,10 @@ class BlogDetailView(DetailView):
         context["posts"] = posts
         context["categories"] = categories
         return context
+
+
+def subscribe(request):
+    if request.method == "POST":
+        form = SubscribersForm(request.POST)
+        if form.is_valid():
+            form.save()

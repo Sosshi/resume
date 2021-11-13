@@ -12,7 +12,7 @@ from django.views.generic import (
 )
 from django.db.models import Count
 
-from blog.models import Post
+from blog.models import Post, Subscribers
 from blog.forms import PostForm
 from users.models import ActivityLog
 
@@ -74,10 +74,14 @@ class BlogListView(LoginRequiredMixin, ListView):
 
 
 # statistics Views
-
-
 class StatisticsViews(LoginRequiredMixin, TemplateView):
     template_name = "admin_area/statistics.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        subscribers = Subscribers.objects.all()
+        context["subscribers"] = subscribers
+        return context
 
 
 class UserDetailView(LoginRequiredMixin, UpdateView):

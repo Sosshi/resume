@@ -1,0 +1,38 @@
+{% extends "admin_area/base.html" %} {% load static %} {% block content %} {% load hitcount_tags %}
+<!-- News & Updates Traffic -->
+<section class="section dashboard">
+    <div class="row">
+        <!-- Card with an image on left -->
+        {% if posts %} {% for post in posts %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    {% if post.get_image %}<img src="{{post.get_image}}" class="img-fluid rounded-start" alt="..."> {% else %}
+                    <img src="/static/images/blog_placeholder.jpg" class="img-fluid rounded-start" alt="..."> {% endif %}
+
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{post.title}}t</h5>
+                        <p class="card-text">{{post.body|safe| slice:":500"}}...</p>
+                    </div>
+                    <p style="padding-left: 10px;"><a href=" {% url 'dashboard_blog_edit' post.slug %} " class="btn btn-primary active">Edit</a> <a href="{% url 'dashboard_blog_delete' post.slug%}" class="btn btn-danger">Delete</a> <button type="button" class="btn btn-light" disabled>Views: {% get_hit_count for post%}</button></p>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- End Card with an image on left -->
+        {% endfor %} {% else %}
+        <div class="card mb-3">
+            <h1 style="align-self: center;">Doesn't not exist</h1>
+        </div>
+        <!-- End Card with an image on left -->
+        {% endif %}
+
+
+
+    </div>
+</section>
+<!-- End News & Updates -->{% endblock content %}

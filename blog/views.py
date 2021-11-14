@@ -1,5 +1,8 @@
+import time
+
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
+from django.http import HttpResponse
 
 from .models import Post, Category
 from .forms import SubscribersForm
@@ -27,7 +30,7 @@ class BlogDetailView(DetailView):
 
 
 def subscribe(request):
-    if request.method == "POST":
-        form = SubscribersForm(request.POST)
-        if form.is_valid():
-            form.save()
+    time.sleep(5)
+    result = request.POST.get("q")
+
+    return HttpResponse(f"<span class='badge badge-pill badge-primary'>{result}</span>")

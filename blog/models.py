@@ -8,7 +8,12 @@ from hitcount.models import HitCountMixin, HitCount
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
+
+    def save(self, *args, **kwargs):
+        """Slugify and fill in the slug model"""
+        self.name = self.name.lower()
+        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -31,7 +36,7 @@ class Post(models.Model):
         related_query_name="hit_count_generic_relation",
     )
     category = models.ForeignKey(
-        Category, related_name="posts", on_delete=models.CASCADE, null=True, blank=True
+        Category, related_name="posts", on_delete=models.CASCADE
     )
 
     def get_absolute_url(self):

@@ -12,7 +12,7 @@ from django.views.generic import (
 )
 from django.db.models import Count
 
-from blog.models import Post, Subscribers
+from blog.models import Post, Subscribers, Category
 from blog.forms import PostForm
 from users.models import ActivityLog
 
@@ -36,7 +36,13 @@ class DashBoardView(LoginRequiredMixin, TemplateView):
 class BlogCreateView(LoginRequiredMixin, CreateView):
     template_name = "admin_area/blog_create.html"
     model = Post
-    fields = ["title", "subtitle", "body", "image"]
+    fields = [
+        "title",
+        "subtitle",
+        "category",
+        "body",
+        "image",
+    ]
     success_url = "/dashboard/blog/"
 
     def form_valid(self, form):
@@ -103,3 +109,34 @@ class UserDetailView(LoginRequiredMixin, UpdateView):
         "linkedin",
     ]
     success_url = "/dashboard/"
+
+
+class CategoriesCreateView(CreateView):
+    template_name = "admin_area/categories.html"
+    model = Category
+    fields = ["name"]
+    success_url = "/dashboard/blog/categories/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
+
+
+class CategoriesDeleteView(DeleteView):
+    template_name = "admin_area/category_delete.html"
+    model = Category
+    success_url = "/dashboard/blog/categories/"
+
+
+class SearchView(ListView):
+    template_name = "admin_area/search.html"
+    context_object_name = "posts"
+    model = Post
+
+    def get_queryset(self):
+        title = self.kwargs.get("title", "")
+        object_list = self.model.objects.all()
+        if title:
+            object_list = object_list.filter(title__icontains=title)
+        return object_list

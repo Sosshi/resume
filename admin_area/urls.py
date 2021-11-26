@@ -10,6 +10,8 @@ from .views import (
     CategoriesCreateView,
     CategoriesDeleteView,
     SearchView,
+    MailCreateView,
+    send_email,
 )
 
 urlpatterns = [
@@ -32,7 +34,9 @@ urlpatterns = [
         BlogDeleteView.as_view(),
         name="dashboard_blog_delete",
     ),
-    # Statisticts
-    path("statistics/", StatisticsViews.as_view(), name="dashboard_statistics"),
+    # subscribers
+    path("subscribers/", StatisticsViews.as_view(), name="dashboard_statistics"),
+    path("subscribers/mail/", MailCreateView.as_view(), name="dashboard_send_mail"),
+    path("subscribers/main/send/", send_email, name="dashboard_send"),
     path("profile/<int:pk>/", UserDetailView.as_view(), name="dashboard_profile"),
 ]

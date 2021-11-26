@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinLengthValidator
 
 
 class CustomUser(AbstractUser):
@@ -12,7 +13,9 @@ class CustomUser(AbstractUser):
     instagram = models.URLField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
     profile_image = models.ImageField(upload_to="images", null=True, blank=True)
-    about = models.TextField()
+    about = models.TextField(
+        validators=[MinLengthValidator(300, message="Please enter more text")]
+    )
 
     def get_image(self):
         """To get the image url"""

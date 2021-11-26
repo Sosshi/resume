@@ -5,6 +5,8 @@ from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCountMixin, HitCount
+from django.db.models.signals import post_save
+from django.core.mail import send_mass_mail
 
 
 class Category(models.Model):
@@ -21,7 +23,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(
-        get_user_model(), related_name="posts", on_delete=models.CASCADE
+        get_user_model(), related_name="posts", on_delete=models.PROTECT
     )
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, null=True, blank=True)
@@ -36,7 +38,7 @@ class Post(models.Model):
         related_query_name="hit_count_generic_relation",
     )
     category = models.ForeignKey(
-        Category, related_name="posts", on_delete=models.CASCADE
+        Category, related_name="posts", on_delete=models.DO_NOTHING
     )
 
     def get_absolute_url(self):
@@ -71,3 +73,19 @@ class Subscribers(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+def send_emails(sender, instance, **kwargs):
+    email_list = Subscribers.objects.values_list("email", flat=True)
+    list_of_mail = []
+    for index, email in enumerate(email_list):
+        list_of_mail.append(email)
+    try:
+        message = (instance.title, instance.body, "symon@gmail.com", list_of_mail)
+        send_mass_mail((message,), fail_silently=True)
+
+    except:
+        pass
+
+
+post_save.connect(send_emails, sender=Post)

@@ -18,6 +18,7 @@ jupyter = "*"
 ipython = "*"
 django-extensions = "*"
 httpx = "*"
+django-richtextfield = "*"
 
 [dev-packages]
 pylint = "*"

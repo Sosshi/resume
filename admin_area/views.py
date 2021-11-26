@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.core.mail import send_mass_mail, BadHeaderError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
@@ -15,6 +17,8 @@ from django.db.models import Count
 from blog.models import Post, Subscribers, Category
 from blog.forms import PostForm
 from users.models import ActivityLog
+
+from .forms import MailForm
 
 
 # Dashboard views
@@ -140,3 +144,39 @@ class SearchView(ListView):
         if title:
             object_list = object_list.filter(title__icontains=title)
         return object_list
+
+
+class MailCreateView(TemplateView):
+    template_name = "admin_area/mail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = MailForm()
+        return context
+
+
+def send_email(request):
+    mail_from = request.POST.get("mail_from")
+    content = request.POST.get("content")
+    email_list = Subscribers.objects.values_list("email", flat=True)
+    list_of_mail = []
+    for index, email in enumerate(email_list):
+        list_of_mail.append(email)
+    try:
+        message = ("All lives matter", content, mail_from, list_of_mail)
+        send_mass_mail((message,), fail_silently=True)
+        return HttpResponse(
+            """
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                Mail Sent Successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>"""
+        )
+    except:
+        return HttpResponse(
+            """<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                Something went wrong
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>"""
+        )

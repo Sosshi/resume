@@ -8,7 +8,7 @@
                     <span class="subheading">Hey! I am</span>
                     <h1>Davie Namusanya</h1>
                     <h2>I'm a
-                        <span class="txt-rotate" data-period="2000" data-rotate='[ "Researcher.", "Lecturer.", "Blogger" ]'></span>
+                        <a href="{% url 'about' %}"><span class="txt-rotate" data-period="2000" data-rotate='[ "Researcher.", "Lecturer.", "Blogger" ]'></span></a>
                     </h2>
                 </div>
             </div>
@@ -16,7 +16,7 @@
     </div>
     </div>
     <div class="mouse">
-        <a href="#" class="mouse-icon">
+        <a href="{% url 'about' %}" class="mouse-icon">
             <div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
         </a>
     </div>

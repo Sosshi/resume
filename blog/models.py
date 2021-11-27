@@ -11,10 +11,12 @@ from django.core.mail import send_mass_mail
 
 class Category(models.Model):
     name = models.CharField(max_length=20, unique=True)
+    slug = models.SlugField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         """Slugify and fill in the slug model"""
         self.name = self.name.lower()
+        self.slug = slugify(self.name, allow_unicode=True)
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -65,7 +67,7 @@ class Post(models.Model):
 class Subscribers(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_full_name(self):

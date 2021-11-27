@@ -43,14 +43,7 @@
                 </div>
 
                 <div class="about-author d-flex p-4 bg-light" style="margin-top: 50px;">
-                    <form action="#" class="bg-light p-4 p-md-5 contact-form">
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Your Email">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="subscribe" class="btn btn-primary py-3 px-5">
-                        </div>
-                    </form>
+                    {% include "partials/subscribe.html" %}
                 </div>
 
 
@@ -58,10 +51,10 @@
             <!-- .col-md-8 -->
             <div class="col-lg-4 sidebar ftco-animate">
                 <div class="sidebar-box">
-                    <form action="#" class="search-form">
+                    <form action="{% url 'blog_search' %}" class="search-form" method="GET">
                         <div class="form-group">
                             <span class="icon icon-search"></span>
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" name="q" class="form-control" placeholder="Search...">
                         </div>
                     </form>
                 </div>
@@ -69,7 +62,7 @@
                     <h3 class="heading-sidebar">Categories</h3>
                     <ul class="categories">
                         {% for category in categories %}
-                        <li><a href="#">{{category.name}} <span>{{category.posts.count}}</span></a></li>
+                        <li><a href="{% url 'blog_category_filter' category.slug %}">{{category.name}} <span>{{category.posts.count}}</span></a></li>
                         {% endfor %}
                     </ul>
                 </div>

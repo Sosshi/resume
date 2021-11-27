@@ -11,6 +11,10 @@ class ContactPage(TemplateView):
     template_name = "contact.html"
 
 
+class Aboutpage(TemplateView):
+    template_name = "about.html"
+
+
 def contact(request):
     email = request.POST.get("email")
     subject = request.POST.get("subject")

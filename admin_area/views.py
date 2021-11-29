@@ -16,7 +16,10 @@ from django.db.models import Count
 
 from blog.models import Post, Subscribers, Category
 from blog.forms import PostForm
+
 from users.models import ActivityLog
+
+from posts.models import Education, Experience, Skill
 
 from .forms import MailForm
 
@@ -180,3 +183,39 @@ def send_email(request):
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>"""
         )
+
+
+class EducationCreateView(CreateView):
+    model = Education
+    template_name = "admin_area/education_create.html"
+    fields = "__all__"
+    success_url = "/dashboard/education/create/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["education"] = Education.objects.all
+        return context
+
+
+class ExperienceCreateView(CreateView):
+    model = Experience
+    template_name = "admin_area/experience_create.html"
+    fields = "__all__"
+    success_url = "/dashboard/experience/create/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["experiences"] = Experience.objects.all
+        return context
+
+
+class SkillCeateView(CreateView):
+    model = Skill
+    template_name = "admin_area/skill_create.html"
+    fields = "__all__"
+    success_url = "/dashboard/skill/create/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["skills"] = Skill.objects.all
+        return context

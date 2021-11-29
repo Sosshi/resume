@@ -1,33 +1,40 @@
 from django.db import models
 
 
-class Tag(models.Model):
-    """
-    This is related to the creative writing model and will be used in seraching for articles"""
+class Education(models.Model):
+    heading = models.CharField(max_length=255)
+    institution = models.CharField(max_length=255)
+    description = models.TextField()
+    from_date = models.DateField()
+    to_date = models.DateField()
 
+    class Meta:
+        ordering = ["-from_date"]
+
+    def __str__(self):
+        return self.heading
+
+
+class Experience(models.Model):
+    position = models.CharField(max_length=255)
+    institution = models.CharField(max_length=255)
+    description = models.TextField()
+    from_date = models.DateField()
+    to_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-from_date"]
+
+    def __str__(self):
+        return self.position
+
+
+class Skill(models.Model):
     name = models.CharField(max_length=255)
+    percentage = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ["-from_date"]
 
     def __str__(self):
         return self.name
-
-
-class CreativeWriting(models.Model):
-    """
-    This controls the model for the creative writing posts
-    """
-
-    title = models.CharField(max_length=255)
-    tags = models.ManyToManyField(Tag, related_name="creative_writings")
-    body = models.TextField()
-
-    def __str__(self):
-        return self.title
-
-
-class Acadamic(models.Model):
-    title = models.CharField(max_length=255)
-    year = models.DateField()
-    body = models.TextField()
-
-    def __str__(self):
-        return self.title

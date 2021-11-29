@@ -12,6 +12,9 @@ from .views import (
     SearchView,
     MailCreateView,
     send_email,
+    EducationCreateView,
+    ExperienceCreateView,
+    SkillCeateView,
 )
 
 urlpatterns = [
@@ -39,4 +42,16 @@ urlpatterns = [
     path("subscribers/mail/", MailCreateView.as_view(), name="dashboard_send_mail"),
     path("subscribers/main/send/", send_email, name="dashboard_send"),
     path("profile/<int:pk>/", UserDetailView.as_view(), name="dashboard_profile"),
+    # Works
+    path(
+        "education/create/",
+        EducationCreateView.as_view(),
+        name="dashboard_education_create",
+    ),
+    path(
+        "experience/create/",
+        ExperienceCreateView.as_view(),
+        name="dashboard_experience_create",
+    ),
+    path("skill/create/", SkillCeateView.as_view(), name="dashboard_skill_create"),
 ]

@@ -33,8 +33,7 @@ class Skill(models.Model):
     name = models.CharField(max_length=255)
     percentage = models.PositiveIntegerField()
 
-    class Meta:
-        ordering = ["-from_date"]
+    
 
     def __str__(self):
         return self.name

@@ -15,6 +15,12 @@ from .views import (
     EducationCreateView,
     ExperienceCreateView,
     SkillCeateView,
+    EducationDeleteView,
+    ExperienceDeleteView,
+    SkillDeleteView,
+    EducationEditView,
+    SkillEditView,
+    ExperienceEditView,
 )
 
 urlpatterns = [
@@ -49,9 +55,39 @@ urlpatterns = [
         name="dashboard_education_create",
     ),
     path(
+        "education/edit/<int:pk>/",
+        EducationEditView.as_view(),
+        name="dashboard_education_edit",
+    ),
+    path(
+        "education/delete/<int:pk>/",
+        EducationDeleteView.as_view(),
+        name="dashboard_education_delete",
+    ),
+    path(
         "experience/create/",
         ExperienceCreateView.as_view(),
         name="dashboard_experience_create",
     ),
+    path(
+        "experience/edit/<int:pk>/",
+        ExperienceEditView.as_view(),
+        name="dashboard_experience_edit",
+    ),
+    path(
+        "experience/delete/<int:pk>/",
+        ExperienceDeleteView.as_view(),
+        name="dashboard_experience_delete",
+    ),
     path("skill/create/", SkillCeateView.as_view(), name="dashboard_skill_create"),
+    path(
+        "skill/edit/<int:pk>/",
+        SkillEditView.as_view(),
+        name="dashboard_skill_edit",
+    ),
+    path(
+        "skill/delete/<int:pk>/",
+        SkillDeleteView.as_view(),
+        name="dashboard_skill_delete",
+    ),
 ]

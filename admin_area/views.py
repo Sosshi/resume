@@ -114,8 +114,10 @@ class UserDetailView(LoginRequiredMixin, UpdateView):
         "facebook",
         "instagram",
         "linkedin",
+        "cv_link",
+        "number_of_projects_completed",
     ]
-    success_url = "/dashboard/"
+    success_url = "/dashboard/profile/1/"
 
 
 class CategoriesCreateView(CreateView):
@@ -197,6 +199,19 @@ class EducationCreateView(CreateView):
         return context
 
 
+class EducationEditView(UpdateView):
+    model = Education
+    success_url = "/dashboard/education/create/"
+    template_name = "admin_area/blog_edit.html"
+    fields = "__all__"
+
+
+class EducationDeleteView(DeleteView):
+    model = Education
+    success_url = "/dashboard/education/create/"
+    template_name = "admin_area/category_delete.html"
+
+
 class ExperienceCreateView(CreateView):
     model = Experience
     template_name = "admin_area/experience_create.html"
@@ -209,6 +224,19 @@ class ExperienceCreateView(CreateView):
         return context
 
 
+class ExperienceEditView(UpdateView):
+    model = Experience
+    success_url = "/dashboard/education/create/"
+    template_name = "admin_area/blog_edit.html"
+    fields = "__all__"
+
+
+class ExperienceDeleteView(DeleteView):
+    model = Experience
+    success_url = "/dashboard/experience/create/"
+    template_name = "admin_area/category_delete.html"
+
+
 class SkillCeateView(CreateView):
     model = Skill
     template_name = "admin_area/skill_create.html"
@@ -219,3 +247,16 @@ class SkillCeateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["skills"] = Skill.objects.all
         return context
+
+
+class SkillDeleteView(DeleteView):
+    model = Skill
+    template_name = "admin_area/category_delete.html"
+    success_url = "/dashboard/skill/create/"
+
+
+class SkillEditView(UpdateView):
+    model = Skill
+    success_url = "/dashboard/education/create/"
+    template_name = "admin_area/blog_edit.html"
+    fields = "__all__"

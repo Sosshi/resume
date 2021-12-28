@@ -16,6 +16,8 @@ class CustomUser(AbstractUser):
     about = models.TextField(
         validators=[MinLengthValidator(300, message="Please enter more text")]
     )
+    number_of_projects_completed = models.IntegerField(default=0)
+    cv_link = models.URLField(null=True, blank=True)
 
     def get_image(self):
         """To get the image url"""

@@ -18,7 +18,7 @@
 
             <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                    {% if object.get_image %}<img src="{{object.get_image}}" alt="Profile" class="rounded-circle"> {% else %}<img src="/static/images/profile_ph.png" alt="Profile" class="rounded-circle"> {% endif %}
+                    {% if object.get_image %}<img src="{{object.get_image}}" alt="Profile"> {% else %}<img src="/static/images/profile_ph.png" alt="Profile"> {% endif %}
 
 
                     <h2>{{object.username}}</h2>

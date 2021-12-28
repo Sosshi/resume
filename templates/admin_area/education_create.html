@@ -9,26 +9,18 @@
     </form>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Education</h5>
-
-        <!-- List group with Education Contents -->
-        <div class="list-group">
-            {% for education in education %}
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{education.heading}}</h5>
-                    <small>{{education.from_date}} - {{education.to_date}}</small>
-                </div>
-                <p class="mb-1">{{education.description}}</small>
-            </a>
-            {% endfor %}
-
+<div class="row">
+    {% for education in education %}
+    <div class="card bg-light">
+        <div class="card-header">{{education.heading}}</div>
+        <div class="card-body">
+            <p class="card-text">{{education.description}}</p>
+            <a href="{% url 'dashboard_education_edit' education.pk %}" class="btn btn-primary">edit</a>
+            <a href="{% url 'dashboard_education_delete' education.pk %}" class="btn btn-danger">Delete</a>
         </div>
-        <!-- End List group Education Content -->
-
     </div>
+    {% endfor %}
 </div>
+
 
 {% endblock content %}

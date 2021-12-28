@@ -9,26 +9,17 @@
     </form>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Experience</h5>
 
-        <!-- List group with Advanced Contents -->
-        <div class="list-group">
-            {% for experience in experiences %}
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{experience.heading}}</h5>
-                    <small>{{experience.from_date}} - {{experience.to_date}}</small>
-                </div>
-                <p class="mb-1">{{experience.description}}</small>
-            </a>
-            {% endfor %}
-
+<div class="row">
+    {% for experience in experiences %}
+    <div class="card bg-light">
+        <div class="card-header">{{experience.position}}</div>
+        <div class="card-body">
+            <p class="card-text">{{experience.description}}</p>
+            <a href="{% url 'dashboard_experience_edit' experience.pk %}" class="btn btn-primary">edit</a>
+            <a href="{% url 'dashboard_experience_delete' experience.pk %}" class="btn btn-danger">Delete</a>
         </div>
-        <!-- End List group Advanced Content -->
-
     </div>
+    {% endfor %}
 </div>
-
 {% endblock content %}

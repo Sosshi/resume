@@ -18,11 +18,13 @@
             {% for skill in skills %}
 
 
-            <a class="list-group-item list-group-item-action" aria-current="true">
+            <li class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{skill.name}} - {{skill.percentage}}%</h5>
                 </div>
-            </a>
+                <a href="{% url 'dashboard_skill_edit' skill.pk %}" class="btn btn-primary">edit</a>
+                <a href="{% url 'dashboard_skill_delete' skill.pk %}" class="btn btn-danger">Delete</a>
+            </li>
             {% endfor %}
 
         </div>

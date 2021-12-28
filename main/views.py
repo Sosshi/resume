@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 
 
 class HomePage(TemplateView):
@@ -13,6 +14,11 @@ class ContactPage(TemplateView):
 
 class Aboutpage(TemplateView):
     template_name = "about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = get_user_model().objects.get(pk=1)
+        return context
 
 
 def contact(request):

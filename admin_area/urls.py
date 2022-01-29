@@ -14,13 +14,16 @@ from .views import (
     send_email,
     EducationCreateView,
     ExperienceCreateView,
-    SkillCeateView,
+    SkillCreateView,
     EducationDeleteView,
     ExperienceDeleteView,
     SkillDeleteView,
     EducationEditView,
     SkillEditView,
     ExperienceEditView,
+    WorksCreateView,
+    WorkDeleteView,
+    WorkEditView,
 )
 
 urlpatterns = [
@@ -79,7 +82,7 @@ urlpatterns = [
         ExperienceDeleteView.as_view(),
         name="dashboard_experience_delete",
     ),
-    path("skill/create/", SkillCeateView.as_view(), name="dashboard_skill_create"),
+    path("skill/create/", SkillCreateView.as_view(), name="dashboard_skill_create"),
     path(
         "skill/edit/<int:pk>/",
         SkillEditView.as_view(),
@@ -89,5 +92,10 @@ urlpatterns = [
         "skill/delete/<int:pk>/",
         SkillDeleteView.as_view(),
         name="dashboard_skill_delete",
+    ),
+    path("work/create/", WorksCreateView.as_view(), name="dashboard_work_create"),
+    path("work/edit/<int:pk>/", WorkEditView.as_view(), name="dashboard_work_edit"),
+    path(
+        "work/delete/<int:pk>", WorkDeleteView.as_view(), name="dashboard_work_delete"
     ),
 ]

@@ -24,7 +24,7 @@
                             <span class="flaticon-ideas"></span>
                         </div>
                         <div class="text pl-3">
-                            <span class="date">2014-2015</span>
+                            <span class="date">{{education.from_date}}-{{education.to_date}}</span>
                             <h2>{{education.heading}}</h2>
                             <span class="position">{{education.institution}}</span>
                             <p>{{education.description}}</p>
@@ -42,10 +42,28 @@
                             <span class="flaticon-ideas"></span>
                         </div>
                         <div class="text pl-3">
-                            <span class="date">2014-2015</span>
+                            <span class="date">{{experience.from_date}}-{{experience.to_date}}</span>
                             <h2>{{experience.position}}</h2>
                             <span class="position">{{experience.institution}}</span>
                             <p>{{experience.description}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <div id="page-3" class="page three">
+                    <h2 class="heading">Works</h2>
+                    {% for work in works %}
+                    <div class="resume-wrap d-flex ftco-animate">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="flaticon-ideas"></span>
+                        </div>
+                        <div class="text pl-3">
+                            <span class="date">{{work.from_date}}-{{work.to_date}}</span>
+                            <h2>{{work.heading}}</h2>
+                            <span class="position">{{work.subheading}}</span>
+                            <p>{{work.description}}</p>
                         </div>
                     </div>
                     {% endfor %}

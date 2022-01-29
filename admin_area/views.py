@@ -19,7 +19,7 @@ from blog.forms import PostForm
 
 from users.models import ActivityLog
 
-from posts.models import Education, Experience, Skill
+from posts.models import Education, Experience, Skill, Work
 
 from .forms import MailForm
 
@@ -237,7 +237,7 @@ class ExperienceDeleteView(DeleteView):
     template_name = "admin_area/category_delete.html"
 
 
-class SkillCeateView(CreateView):
+class SkillCreateView(CreateView):
     model = Skill
     template_name = "admin_area/skill_create.html"
     fields = "__all__"
@@ -258,5 +258,30 @@ class SkillDeleteView(DeleteView):
 class SkillEditView(UpdateView):
     model = Skill
     success_url = "/dashboard/education/create/"
+    template_name = "admin_area/blog_edit.html"
+    fields = "__all__"
+
+
+class WorksCreateView(CreateView):
+    model = Work
+    template_name = "admin_area/work_create.html"
+    fields = "__all__"
+    success_url = "/dashboard/work/create/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["works"] = Work.objects.all
+        return context
+
+
+class WorkDeleteView(DeleteView):
+    model = Skill
+    template_name = "admin_area/category_delete.html"
+    success_url = "/dashboard/work/create/"
+
+
+class WorkEditView(UpdateView):
+    model = Work
+    success_url = "/dashboard/work/create/"
     template_name = "admin_area/blog_edit.html"
     fields = "__all__"

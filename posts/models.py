@@ -29,11 +29,23 @@ class Experience(models.Model):
         return self.position
 
 
+class Work(models.Model):
+    heading = models.CharField(max_length=255)
+    subheading = models.CharField(max_length=255)
+    description = models.TextField()
+    from_date = models.DateField()
+    to_date = models.DateField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-from_date"]
+
+    def __str__(self):
+        return self.heading
+
+
 class Skill(models.Model):
     name = models.CharField(max_length=255)
     percentage = models.PositiveIntegerField()
-
-    
 
     def __str__(self):
         return self.name

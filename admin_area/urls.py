@@ -93,6 +93,7 @@ urlpatterns = [
         SkillDeleteView.as_view(),
         name="dashboard_skill_delete",
     ),
+    # work
     path("work/create/", WorksCreateView.as_view(), name="dashboard_work_create"),
     path("work/edit/<int:pk>/", WorkEditView.as_view(), name="dashboard_work_edit"),
     path(

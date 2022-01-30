@@ -275,7 +275,7 @@ class WorksCreateView(CreateView):
 
 
 class WorkDeleteView(DeleteView):
-    model = Skill
+    model = Work
     template_name = "admin_area/category_delete.html"
     success_url = "/dashboard/work/create/"
 

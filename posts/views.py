@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from .models import Experience, Skill, Education
+from .models import Experience, Skill, Education, Work
 
 
 class WorksPage(TemplateView):
@@ -11,5 +11,6 @@ class WorksPage(TemplateView):
         context = super().get_context_data(**kwargs)
         context["education"] = Education.objects.all
         context["experiences"] = Experience.objects.all
+        context["works"] = Work.objects.all
         context["skills"] = Skill.objects.all
         return context
